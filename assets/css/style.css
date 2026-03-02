@@ -4,14 +4,21 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: #000; /* Matching Procreate background */
+    background-color: #000; 
     overflow: hidden;
+    /* Centers the carousel-container if it's smaller than the screen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .carousel-container {
     position: relative;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .carousel-track {
@@ -20,23 +27,25 @@ body, html {
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     height: 100%;
+    width: 100%;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbars */
 .carousel-track::-webkit-scrollbar {
     display: none;
 }
 
 .slide {
     min-width: 100vw;
-    height: 100%;
-    scroll-snap-align: start;
+    height: 100vh;
+    scroll-snap-align: center; /* Changed from 'start' to 'center' */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Horizontal centering */
+    align-items: center;     /* Vertical centering */
+    flex-shrink: 0;
 }
 
-/* Confine images and video to viewable area */
+/* This ensures images and videos don't stretch but stay centered */
 .slide img, 
 .slide video {
     max-width: 100%;
@@ -44,31 +53,35 @@ body, html {
     width: auto;
     height: auto;
     object-fit: contain;
+    /* Prevent accidental alignment shifts */
+    margin: auto; 
 }
 
 .video-wrapper {
     position: relative;
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 /* Play Button Styling */
 .play-trigger {
     position: absolute;
     z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* Removed top/left 50% because the flex container handles it */
     padding: 20px 40px;
     font-size: 24px;
     cursor: pointer;
     background: #fff;
     border: 3px solid #000;
     border-radius: 50px;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.2s ease;
+}
+
+.play-trigger:hover {
+    transform: scale(1.1);
 }
 
 /* Navigation Buttons */
@@ -77,13 +90,19 @@ body, html {
     top: 50%;
     transform: translateY(-50%);
     z-index: 20;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     border: none;
-    padding: 15px;
+    padding: 20px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 40px;
+    border-radius: 50%;
+    transition: background 0.3s;
 }
 
-.left { left: 20px; }
-.right { right: 20px; }
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.left { left: 30px; }
+.right { right: 30px; }
