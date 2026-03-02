@@ -1,23 +1,28 @@
-/* General Reset */
-body, html {
+/* 1. THE RESET 
+   This stops the browser from adding extra "ghost" space */
+   * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000; 
-    overflow: hidden;
-    /* Centers the carousel-container if it's smaller than the screen */
+}
+
+body, html {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000; /* Black background */
+    overflow: hidden;       /* STOPS ALL SCROLLING */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* 2. THE CAROUSEL FRAMEWORK */
 .carousel-container {
     position: relative;
     width: 100vw;
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -26,92 +31,80 @@ body, html {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    height: 100%;
     width: 100%;
+    height: 100%;
+    overflow-y: hidden; /* Extra safety against vertical scrolling */
 }
 
-/* Hide scrollbars */
+/* Hide scrollbars for a clean "app" look */
 .carousel-track::-webkit-scrollbar {
     display: none;
 }
 
+/* 3. THE SLIDES */
 .slide {
-    min-width: 100vw;
-    height: 100vh;
-    scroll-snap-align: center; /* Changed from 'start' to 'center' */
-    display: flex;
-    justify-content: center; /* Horizontal centering */
-    align-items: center;     /* Vertical centering */
-    flex-shrink: 0;
-}
-
-.slide img, 
-.slide video {
-    /* Enforce that it NEVER exceeds the screen size */
-    max-width: 100vw; 
-    max-height: 100vh;
-    
-    /* Ensure it scales down proportionally */
-    width: auto;
-    height: auto;
-    
-    /* This prevents the video from 'stretching' the slide container */
-    object-fit: contain;
-    
-    /* Standard centering */
-    display: block;
-    margin: auto;
-}
-
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 100vw;
-    max-height: 100vh;
+    flex: 0 0 100vw;      /* Each slide is exactly one screen wide */
+    height: 100vh;        /* Each slide is exactly one screen tall */
+    scroll-snap-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Clips any accidental 'leakage' */
+    position: relative;
 }
 
-/* Play Button Styling */
+/* 4. THE 50% CONSTRAINT 
+   This forces your art to be small so we can find the "overlap" error */
+.slide img, 
+.slide video,
+#birthdayVideo {
+    max-width: 50vw !important; 
+    max-height: 50vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    margin: auto;
+    
+    /* DEBUGGER: Remove this line once you are happy with the size */
+    border: 2px solid red; 
+}
+
+/* 5. VIDEO WRAPPER 
+   Ensures the 'Play' button stays stuck to the video area */
+.video-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* 6. UI ELEMENTS (Buttons) */
 .play-trigger {
     position: absolute;
-    z-index: 10;
-    /* Removed top/left 50% because the flex container handles it */
-    padding: 20px 40px;
-    font-size: 24px;
+    z-index: 100;
+    padding: 15px 30px;
+    font-size: 1.5rem;
     cursor: pointer;
-    background: #fff;
-    border: 3px solid #000;
-    border-radius: 50px;
-    transition: opacity 0.5s ease, transform 0.2s ease;
+    background: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    transition: opacity 0.5s ease;
 }
 
-.play-trigger:hover {
-    transform: scale(1.1);
-}
-
-/* Navigation Buttons */
 .nav-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 20;
+    z-index: 1000;
     background: rgba(255, 255, 255, 0.1);
     color: white;
     border: none;
     padding: 20px;
     cursor: pointer;
-    font-size: 40px;
+    font-size: 2rem;
     border-radius: 50%;
-    transition: background 0.3s;
 }
 
-.nav-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.left { left: 30px; }
-.right { right: 30px; }
+.left { left: 5vw; }
+.right { right: 5vw; }
