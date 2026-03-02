@@ -4,26 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Good Day Dog | Happy Birthday Caroline!</title>
-    
     <link rel="stylesheet" href="css/style.css">
-    
-    <link rel="icon" href="assets/images/favicon.ico">
 </head>
 <body>
 
     <div class="carousel-container">
-        
-        <button class="nav-btn left" id="prevBtn" aria-label="Previous Slide">&#10094;</button>
-        <button class="nav-btn right" id="nextBtn" aria-label="Next Slide">&#10095;</button>
+        <button class="nav-btn left" id="prevBtn" onclick="moveSlide(-1)" aria-label="Previous">&#10094;</button>
+        <button class="nav-btn right" id="nextBtn" onclick="moveSlide(1)" aria-label="Next">&#10095;</button>
 
         <div class="carousel-track" id="track">
             
-            <div class="slide" id="landing-slide">
-                <div class="theater-container">
-                    <video id="birthdayVideo" src="assets/videos/gddintro.mov" playsinline muted></video>
-                    <div class="curtain left-curtain" id="leftCurtain"></div>
-                    <div class="curtain right-curtain" id="rightCurtain"></div>
-                    <button id="playBtn" class="play-trigger">PLAY</button>
+            <div class="slide">
+                <div class="video-wrapper">
+                    <video id="birthdayVideo" src="assets/videos/gddintro.mov" playsinline poster="assets/images/curtain-closed.png"></video>
+                    <button id="playBtn" class="play-trigger" onclick="startBirthdayVideo()">
+                        PLAY
+                    </button>
                 </div>
             </div>
 
